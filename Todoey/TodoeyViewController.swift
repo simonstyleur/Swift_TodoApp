@@ -11,10 +11,13 @@ import UIKit
 class TodoeyViewController: UITableViewController {
 
     var itemArray = ["Find Make", "Buy Eggos", "Destroy Demogorgoy"]
+    let userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let items = userDefaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
     }
 
     
@@ -37,8 +40,6 @@ class TodoeyViewController: UITableViewController {
     //MARK - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(itemArray[indexPath.row])
-        
         
         if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
             tableView.cellForRow(at: indexPath)?.accessoryType = .none
@@ -60,6 +61,7 @@ class TodoeyViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             // what will happen once the user clicks the add button on  our UIAlert
             self.itemArray.append(textField.text!)
+            self.userDefaults.set(self.itemArray, forKey: "TodoListArray")
             self.tableView.reloadData()
 
         }
