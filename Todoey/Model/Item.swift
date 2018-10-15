@@ -6,7 +6,7 @@
 //  Copyright © 2018 Mohamed EL BATHA. All rights reserved.
 //
 
-class Item {
+class Item: Codable {
     
     //TODO: Messages need a messageBody and a sender variable
     
